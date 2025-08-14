@@ -275,13 +275,13 @@ export default function Liste() {
                       {/* Affichage du prix unitaire */}
                       {vente.articles.map((item, itemIndex) => (
                         <span key={item.item_id}>
-                          {formatCFA(item.prix_unitaire_vente)}
+                          {(item.prix_unitaire_vente)}
                           {itemIndex < vente.articles.length - 1 && <br />}
                         </span>
                       ))}
                     </td>
-                    <td className="px-3 py-2 text-right text-gray-700">{formatCFA(vente.montant_paye_vente)}</td>
-                    <td className="px-3 py-2 text-right text-red-600 font-semibold">{formatCFA(vente.reste_a_payer_vente)}</td>
+                    <td className="px-3 py-2 text-right text-gray-700">{(vente.montant_paye_vente)}</td>
+                    <td className="px-3 py-2 text-right text-red-600 font-semibold">{(vente.reste_a_payer_vente)}</td>
                     <td className="px-3 py-2 text-gray-700">
                       {/* MODIFIÉ : Affichage de la date de vente formatée */}
                       {(() => {
