@@ -187,7 +187,7 @@ export default function Liste() {
       {/* Nouvelle section pour le résumé des totaux (visible sur l'écran, masquée à l'impression) */}
       <div className="flex justify-between items-center text-lg font-bold text-gray-800 border-b-2 border-gray-300 pb-4 mb-4 no-print">
         <p>Montant Total des Dettes:</p>
-        <p className="text-red-600">{formatCFA(totalResteAPayer)}</p>
+        <p className="text-red-600">{formatCFA(totalResteAPayer) +' CFA'}</p>
       </div>
 
       {/* Ajout de la classe print-header pour le titre et print-container pour le conteneur principal */}
