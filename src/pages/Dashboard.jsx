@@ -21,7 +21,8 @@ import {
   ClipboardDocumentListIcon,
   MoonIcon,
   SunIcon,
-  XMarkIcon
+  XMarkIcon,
+  CalendarDaysIcon
 } from '@heroicons/react/24/outline';
 
 // Importez vos composants de section ici avec les chemins corrects
@@ -38,6 +39,7 @@ import Recherche from './Recherche.jsx';
 import Fournisseurs from './Fournisseurs.jsx';
 import Factures from './Factures.jsx';
 import Benefices from '../pages/Benefices.jsx';
+import RapportJournalier from './RapportJournalier.jsx';
 import SpecialOrders from '../pages/SpecialOrders.jsx';
 import logo from '../assets/logo.png';
 
@@ -50,6 +52,7 @@ const sections = [
   { name: 'Bénéfices', icon: CurrencyDollarIcon },
   { name: 'Dettes', icon: Bars3Icon },
   { name: 'Rapport', icon: ChartBarIcon },
+  { name: 'Rapport Journalier', icon: CalendarDaysIcon },
   { name: 'Clients', icon: UserGroupIcon },
   { name: 'Retour mobile', icon: ArrowLeftIcon },
   { name: 'Liste Fournisseurs', icon: TruckIcon },
@@ -135,6 +138,8 @@ export default function Dashboard() {
           return <Liste />;
         case 'Rapport':
           return <Rapport />;
+          case 'Rapport Journalier':
+          return <RapportJournalier />;
         case 'Accueil':
           return <Accueil />;
         default:
