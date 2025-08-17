@@ -135,7 +135,7 @@ export default function Benefices() {
                 <th className="py-3 px-4 text-right font-semibold uppercase">Qté</th>
                 <th className="py-3 px-4 text-left font-semibold uppercase">Date Vente</th>
                 <th className="py-3 px-4 text-right font-semibold uppercase">Bénéfice Unitaire</th>
-                <th className="py-3 px-4 text-right font-semibold uppercase">Bénéfice Total Ligne</th>
+                {/* <th className="py-3 px-4 text-right font-semibold uppercase">Bénéfice Total Ligne</th> */}
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
@@ -153,9 +153,9 @@ export default function Benefices() {
                   <td className="py-3 px-4 text-right whitespace-nowrap font-medium text-green-700">
                     {formatCFA(item.benefice_unitaire_produit)}
                   </td>
-                  <td className="py-3 px-4 text-right whitespace-nowrap font-bold text-green-800">
+                  {/* <td className="py-3 px-4 text-right whitespace-nowrap font-bold text-green-800">
                     {formatCFA(item.benefice_total_par_ligne)}
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>
