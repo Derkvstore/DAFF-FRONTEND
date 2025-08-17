@@ -30,7 +30,7 @@ const MODELES = {
   iPad: ["Air 10éme Gen", "Air 11éme Gen", "Pro", "Mini"],
   AirPod: ["1ère Gen", "2ème Gen", "3ème Gen", "4ème Gen", "Pro 1ème Gen,", "2ème Gen"],
   Google: ["PIXEL 8 PRO"],
-  APPLE:["WATCH 09 41mm","WATCH 09 45mm" ,"WATCH 10 41mm","WATCH 10 46mm","WATCH 11 41mm","WATCH 10 46mm" ]
+  APPLE:["WATCH 09 41mm", "WATCH 10 41mm","WATCH 10 46mm","WATCH 11 41mm","WATCH 10 46mm" ]
 };
 const STOCKAGES = ["64 Go", "128 Go", "256 Go", "512 Go", "1 To" ,"2 To"];
 
@@ -56,6 +56,8 @@ export default function App() {
   const [formError, setFormError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [updateAllSameProducts, setUpdateAllSameProducts] = useState(false);
+
 
   const [fournisseurs, setFournisseurs] = useState([]);
 
@@ -76,7 +78,8 @@ export default function App() {
   };
 
   const backendUrl = import.meta.env.PROD
-    ? 'https://daff-backend-production.up.railway.app'
+    ? 'https://vanchoco-backend-production.up.railway.app'
+
     : 'http://localhost:3001';
 
   const formatNumber = (amount) => {
@@ -200,9 +203,20 @@ export default function App() {
     }
 
     if (form.marque && MODELES[form.marque] && !MODELES[form.marque].includes(form.modele)) {
-      setFormError("Modèle invalide pour cette marque.");
-      setIsSubmitting(false);
-      return;
+      // Si la marque existe mais le modèle non, on ajoute le nouveau modèle
+      if (!MODELES[form.marque]) {
+        MODELES[form.marque] = [form.modele];
+      } else {
+        MODELES[form.marque].push(form.modele);
+      }
+    } else if (form.marque && !MODELES[form.marque]) {
+        // Si la marque n'existe pas, on l'ajoute avec le nouveau modèle
+        MARQUES.push(form.marque);
+        MODELES[form.marque] = [form.modele];
+    }
+    
+    if (form.stockage && !STOCKAGES.includes(form.stockage)) {
+        STOCKAGES.push(form.stockage);
     }
 
     if (form.type === "CARTON" && form.marque.toLowerCase() === "iphone" && !form.type_carton) {
@@ -233,6 +247,7 @@ export default function App() {
         return;
       }
       dataToSend.quantite = parsedQuantite;
+      dataToSend.update_all_same_products = updateAllSameProducts;
       url = `${backendUrl}/api/products/${editingId}`;
       method = "PUT";
     } else {
@@ -379,6 +394,7 @@ export default function App() {
     setShowForm(true);
     setFormError("");
     setSuccessMessage("");
+    setUpdateAllSameProducts(false);
   };
 
   const resetForm = () => {
@@ -397,6 +413,7 @@ export default function App() {
     setEditingId(null);
     setFormError("");
     setSuccessMessage("");
+    setUpdateAllSameProducts(false);
   };
 
   const modelesDispo = form.marque ? MODELES[form.marque] || [] : [];
@@ -730,6 +747,24 @@ export default function App() {
                 required
                 className="w-full border border-blue-300 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition"
               />
+            </div>
+          )}
+
+          {editingId && (
+            <div className="col-span-full">
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  id="update_all_same_products"
+                  name="update_all_same_products"
+                  checked={updateAllSameProducts}
+                  onChange={(e) => setUpdateAllSameProducts(e.target.checked)}
+                  className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 transition"
+                />
+                <label htmlFor="update_all_same_products" className="ml-2 block text-sm font-medium text-gray-700">
+                  Appliquer les modifications de prix à tous les produits similaires (même marque, modèle, stockage, etc.)
+                </label>
+              </div>
             </div>
           )}
 
