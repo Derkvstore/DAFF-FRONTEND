@@ -17,7 +17,7 @@ export default function FacturesConsolidees() {
   const [searchTerm, setSearchTerm] = useState('');
 
   const backendUrl = import.meta.env.PROD
-    ? 'https://vanchoco-backend-production.up.railway.app'
+    ? 'https://daff-backend-production.up.railway.app'
     : 'http://localhost:3001';
 
   // Fonction utilitaire pour formater les montants en CFA
