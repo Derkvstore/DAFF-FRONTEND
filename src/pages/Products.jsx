@@ -14,7 +14,7 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
 // Listes pour autocomplétion
-const MARQUES = ["iPhone", "Samsung", "iPad", "AirPod", "Google", "APPLE" ];
+const MARQUES = ["iPhone", "Samsung", "iPad", "AirPod", "Google", "Apple", "Play", "Nintendo", "MacBook" ];
 const MODELES = {
   iPhone: [
     "SE 2022","X", "XR", "XS", "XS MAX", "11 SIMPLE", "11 PRO", "11 PRO MAX",
@@ -28,11 +28,15 @@ const MODELES = {
   ],
   Samsung: ["Galaxy S21", "Galaxy S22", "Galaxy A14", "Galaxy Note 20", "Galaxy A54", "Galaxy A36",],
   iPad: ["Air 10éme Gen", "Air 11éme Gen", "Pro", "Mini"],
-  AirPod: ["1ère Gen", "2ème Gen", "3ème Gen", "4ème Gen", "Pro 1ème Gen,", "2ème Gen"],
+  AirPod: ["1ère Gen", "2ème Gen", "3ème Gen", "4ème Gen", "Pro 1ème Gen,", "2ème Gen", "Max"],
   Google: ["PIXEL 8 PRO"],
-  APPLE:["WATCH 09 41mm", "WATCH 10 41mm","WATCH 10 46mm","WATCH 11 41mm","WATCH 10 46mm" ]
+  APPLE:["WATCH 09 41mm","WATCH 09 45mm", "WATCH 10 41mm","WATCH 10 46mm","WATCH 11 41mm","WATCH 11 46mm" ],
+  Play: ["Station 5", "Station 4", "Station Portable"],
+  Nintendo: ["Switch", "Oled"],
+  MacBook: ["Air M1 13 2020","Air M1 15 2020","Air M2 13 2020", "Air 15 M2 2020","Air M2 2020","Air M1 2020","Air M1 2020","Air M1 2020","Air M1 2020","Pro", ]
+
 };
-const STOCKAGES = ["64 Go", "128 Go", "256 Go", "512 Go", "1 To" ,"2 To"];
+const STOCKAGES = ["64 Go", "128 Go", "256 Go", "512 Go", "1 To" ,"2 To","Slim", "Digital", "Pro", "Standard"];
 
 
 export default function App() {
