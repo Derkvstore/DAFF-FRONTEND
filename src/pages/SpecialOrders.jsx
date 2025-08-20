@@ -246,15 +246,14 @@ export default function SpecialOrders() {
       imei: imei || null,
       prix_achat_fournisseur: parseFloat(parseNumberFromFormattedString(prixAchatFournisseur)),
       prix_vente_client: parseFloat(parseNumberFromFormattedString(prixVenteClient)),
-      montant_paye: parseFloat(parseNumberFromFormattedString(initialMontantPaye || 0))
+      montant_paye: parseFloat(parseNumberFromFormattedString(initialMontantPaye || 0)),
+      statut, // Ajout du statut
+      raison_annulation // Ajout de la raison d'annulation
     };
 
     try {
       if (currentOrder) {
-        await axios.put(`${backendUrl}/api/special-orders/${currentOrder.order_id}/update-status`, {
-            statut: statut,
-            raison_annulation: raisonAnnulation
-        });
+        await axios.put(`${backendUrl}/api/special-orders/${currentOrder.order_id}`, orderData);
         setStatusMessage({ type: 'success', text: 'Special order updated successfully!' });
       } else {
         await axios.post(`${backendUrl}/api/special-orders`, orderData);
@@ -422,13 +421,12 @@ export default function SpecialOrders() {
     );
   };
 
-  // ➡️ AJOUTÉ : Nouvelle fonction de suppression
   const handleDeleteOrder = async (orderId) => {
     if (window.confirm("Êtes-vous sûr de vouloir supprimer cette commande ? Cette action est irréversible.")) {
       try {
         await axios.delete(`${backendUrl}/api/special-orders/${orderId}`);
         setStatusMessage({ type: 'success', text: 'Commande spéciale supprimée avec succès!' });
-        fetchSpecialOrders(); // Recharger la liste après la suppression
+        fetchSpecialOrders(); 
       } catch (err) {
         console.error('Erreur lors de la suppression de la commande:', err);
         setStatusMessage({ type: 'error', text: `Erreur: ${err.response?.data?.error || err.message}` });
@@ -628,7 +626,6 @@ export default function SpecialOrders() {
                   </td>
                   <td className="px-4 py-4 text-center whitespace-nowrap">
                     <div className="flex space-x-1 justify-center">
-                      {/* ➡️ AJOUTÉ : Bouton Modifier */}
                       <button
                           onClick={() => openEditModal(order)}
                           className="p-1 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 transition-colors"
@@ -637,7 +634,6 @@ export default function SpecialOrders() {
                           <PencilIcon className="h-5 w-5" />
                       </button>
 
-                      {/* ➡️ AJOUTÉ : Bouton Supprimer */}
                       <button
                           onClick={() => handleDeleteOrder(order.order_id)}
                           className="p-1 rounded-full bg-red-100 text-red-600 hover:bg-red-200 transition-colors"
